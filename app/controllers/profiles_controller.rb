@@ -1,9 +1,11 @@
 class ProfilesController < ApplicationController
   before_action :set_profile, only: %i[ show edit update destroy ]
+  before_action :check_profile
 
   # GET /profiles or /profiles.json
   def index
-    @profiles = Profile.all
+    redirect_to current_user.profile
+    # @profiles = Profile.all
   end
 
   # GET /profiles/1 or /profiles/1.json
@@ -17,6 +19,7 @@ class ProfilesController < ApplicationController
 
   # GET /profiles/1/edit
   def edit
+    @profile = current_user.profile
   end
 
   # POST /profiles or /profiles.json
@@ -36,13 +39,14 @@ class ProfilesController < ApplicationController
 
   # PATCH/PUT /profiles/1 or /profiles/1.json
   def update
+      @profile = current_user.profile
     respond_to do |format|
-      if @profile.update(profile_params)
-        format.html { redirect_to profile_url(@profile), notice: "Profile was successfully updated." }
-        format.json { render :show, status: :ok, location: @profile }
+      if @profile.update profile_params
+        format.html { redirect_to profile_path(@profile), notice: "Profile updated!" }
+        format.json { render :edit, status: :ok, location: @profile }
       else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @profile.errors, status: :unprocessable_entity }
+        format.html { redirect_to edit_profile_path, flash: { error: "Profile could not be updated!" } }
+        format.json { render json: @profile.errors.messages, status: :unprocessable_entity }
       end
     end
   end
@@ -61,6 +65,12 @@ class ProfilesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_profile
       @profile = Profile.find(params[:id])
+    end
+
+    def check_profile
+      if !current_user.profile.name.present?
+        redirect_to edit_profile_path(current_user.profile)
+      end
     end
 
     # Only allow a list of trusted parameters through.
