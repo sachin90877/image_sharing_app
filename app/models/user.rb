@@ -4,12 +4,12 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
          
-  has_many :albums
+  has_many :albums, dependent: :destroy
   has_one :profile, dependent: :destroy
 
   after_create :init_profile
 
   def init_profile
-    self.create_profile!
+    self.build_profile.save(validate: false)
   end
 end

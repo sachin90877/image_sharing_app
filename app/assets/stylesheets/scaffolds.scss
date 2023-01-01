@@ -21,7 +21,8 @@ a:visited {
 
 a:hover {
   color: #fff;
-  text-decoration: underline !important; }
+  text-decoration: none !important;
+  transform: scale(1.02) }
 
 th {
   padding-bottom: 5px; }

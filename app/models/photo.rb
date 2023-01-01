@@ -1,4 +1,7 @@
 class Photo < ApplicationRecord
+	validates :caption, presence: true, length: { in: 2..20 }
+	validates_associated :album
+
 	belongs_to :album
 
 	has_attached_file :image

@@ -1,20 +1,6 @@
 <h1>New Photo</h1>
+<div class="card w-75 m-auto p-4">
+  <%= render 'form', photo: @photo %>
+</div>
 
-<%= form_for [@album, @photo], :html => { :multipart => true } do |form| %>
-  
-  <div class="field">
-    <%= form.label :caption %>
-    <%= form.text_field :caption %>
-  </div>
-
-  <div class="field">
-    <%= form.label :image %>
-    <%= form.file_field :image %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
-
-<%= link_to 'Back', album_photos_path %>
+<%= link_to 'Back', album_photos_path, class: 'btn btn-secondary text-white' %>

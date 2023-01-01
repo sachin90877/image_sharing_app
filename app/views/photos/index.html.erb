@@ -1,26 +1,26 @@
 
 <h1>Photos</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Caption</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
+<div class="row m-auto">
     <% @album.photos.each do |photo| %>
-      <tr>
-        <td><%= photo.caption %></td>
-        <td><%= image_tag(photo.image.url, class: 'w-100 img-fluid') %></td>
-        <td><%= link_to 'Edit', edit_album_photo_path(@album, photo) %></td>
-        <td><%= link_to 'Destroy', album_photos_path(@album), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+      <div class="col-md-4">
+        <div class="d-flex flex-column border m-2">
+          <div class="img-w">
+            <%= image_tag(photo.image.url, alt: photo.caption) %>
+            <p class="caption text-center">Tag Line:<span> <%= photo.caption %></span></p>
+          </div>
+          <% if current_user.id == @album.user_id %>
+            <div class="d-flex justify-content-around mb-3">
+              <%= link_to 'Edit', edit_album_photo_path(@album, photo), class: 'btn btn-sm btn-secondary text-white' %> 
+              <%= link_to 'Destroy', delete_album_photo_path(@album, photo), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger text-white' %>
+            </div>
+          <% end %>
+        </div>
+      </div>
     <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Photo', new_album_photo_path %>
+    <% if @album.photos.count == 0 %>
+      <h2 class="m-auto text-center">No Photo yet!</h2>
+    <% end %>
+</div>
+<% if current_user.id == @album.user_id %>
+  <%= link_to 'Upload New Photo', new_album_photo_path, class: 'btn btn-primary text-white' %>
+<% end %>

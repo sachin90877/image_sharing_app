@@ -20,4 +20,12 @@
 .r-0 {
     right: 0;
 }
-
+#successMessage {
+    z-index: 999;
+}
+.wrapper {
+  min-height: calc(100vh - 118px);
+}
+.d-inherit {
+    display: inherit;
+}

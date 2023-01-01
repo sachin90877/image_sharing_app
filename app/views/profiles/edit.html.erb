@@ -1,10 +1,7 @@
 <h1>Editing Profile</h1>
 
+<div class="card w-75 m-auto p-4">
+  <%= render 'form', profile: @profile %>
+</div>
 
-<%= form_for @profile, url: {action: "update"} do |f| %>
-
-  <!-- Whatever your fields are -->
-  <%= f.text_field :name %>
-
-  <%= f.submit "Update Profile" %>
-<% end %>
+<%= link_to 'Back', profile_path, class: 'btn btn-secondary text-white' %>

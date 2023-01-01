@@ -27,7 +27,7 @@ class AlbumsController < ApplicationController
 
     respond_to do |format|
       if @album.save
-        format.html { redirect_to album_url(@album), notice: "Album was successfully created." }
+        format.html { redirect_to albums_path, notice: "Album was successfully created." }
         format.json { render :show, status: :created, location: @album }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -40,7 +40,7 @@ class AlbumsController < ApplicationController
   def update
     respond_to do |format|
       if @album.update(album_params)
-        format.html { redirect_to album_url(@album), notice: "Album was successfully updated." }
+        format.html { redirect_to albums_path, notice: "Album was successfully updated." }
         format.json { render :show, status: :ok, location: @album }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -67,6 +67,7 @@ class AlbumsController < ApplicationController
 
     def check_profile
       if !current_user.profile.name.present?
+        flash.notice = 'First update your profile'
         redirect_to edit_profile_path(current_user.profile)
       end
     end

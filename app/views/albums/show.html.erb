@@ -1,8 +1,8 @@
-
-<p>
-  <strong>Name:</strong>
-  <%= @album.name %>
-</p>
-
-<%= link_to 'Edit', edit_album_path(@album) %> |
-<%= link_to 'Back', albums_path %>
+<div class="card w-75 m-auto p-4">
+  <p>
+    <strong>Name:</strong>
+    <%= @album.name %>
+  </p>
+</div>
+<%= link_to 'Edit', edit_album_path(@album), class: 'btn btn-info text-white' %>
+<%= link_to 'Back', albums_path, class: 'btn btn-secondary text-white' %>

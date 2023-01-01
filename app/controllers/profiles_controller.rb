@@ -1,6 +1,6 @@
 class ProfilesController < ApplicationController
   before_action :set_profile, only: %i[ show edit update destroy ]
-  before_action :check_profile
+  before_action :check_profile, except: %i[ edit update ]
 
   # GET /profiles or /profiles.json
   def index
@@ -69,6 +69,7 @@ class ProfilesController < ApplicationController
 
     def check_profile
       if !current_user.profile.name.present?
+        flash.notice = 'First update your profile'
         redirect_to edit_profile_path(current_user.profile)
       end
     end
