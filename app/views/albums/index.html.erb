@@ -1,27 +1,36 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Albums</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
+<div class="border rounded my-4 px-2 d-flex justify-content-between">
+  <div class="align-items-center d-inherit">
+    <h3><%= current_user.profile.name %>'s All Albums</h3>
+  </div>
+  <div>
+    <%= link_to 'Create New Album', new_album_path, class:'btn btn-secondary text-white my-3' %>
+  </div>
+</div>
+<% if @albums.count != 0 %>
+  <div class="row">
     <% @albums.each do |album| %>
-      <tr>
-        <td><%= album.name %></td>
-        <td><%= link_to 'Show', album %></td>
-        <td><%= link_to 'Edit', edit_album_path(album) %></td>
-        <td><%= link_to 'Destroy', album, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+    <div class="col-md-3 my-3">
+      <div class="card">
+        <h5 class="card-header text-center pb-0"><%= album.name %> <br> <span class="font-weight-normal text-muted text-right font-12">Created at:- <%= album.created_at.strftime("%d-%m-%Y") %></span></h5>
+        <% if album.photos.count < 25 %>
+          <%= link_to image_tag("folder.png", class: 'card-img-overlay position-relative card-img-top z-99'), new_album_photo_path(album) %>
+        <% else %>
+          <%= link_to image_tag("closed_folder.png", class: 'card-img-overlay position-relative card-img-top z-99') %>
+        <% end %>
+        <div class="text-center card-body pb-0">
+          <p class="card-text">Total no. of photos - <%= album.photos.count %></p>
+        </div>
+        <div class="card-footer text-center card-body px-0">
+          <% if album.photos.count < 25 %>
+            <%= link_to 'Show Album', album_photos_path(album), class: 'card-link btn-sm btn-primary text-white' %>
+          <% end %>
+          <%= link_to 'Edit', edit_album_path(album), class: 'card-link btn-sm btn-secondary text-white' %>
+          <%= link_to 'Destroy', album, method: :delete, data: { confirm: 'Are you sure? All Associated Photos will be destroyed' }, class: 'card-link btn-sm btn-danger text-white' %>
+        </div>
+      </div>
+    </div>
     <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Album', new_album_path %>
+  </div>
+<% else %>
+  <h3 class="text-center">No album yet!</h3>
+<% end %>

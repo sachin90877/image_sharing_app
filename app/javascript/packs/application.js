@@ -15,3 +15,5 @@ require("channels")
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
+
+  window.setTimeout("document.querySelector('#successMessage').style.display='none';", 2000);

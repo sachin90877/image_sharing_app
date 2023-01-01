@@ -13,3 +13,19 @@
  *= require_tree .
  *= require_self
  */
+
+.l-0 {
+    left: 0;
+}
+.r-0 {
+    right: 0;
+}
+#successMessage {
+    z-index: 999;
+}
+.wrapper {
+  min-height: calc(100vh - 118px);
+}
+.d-inherit {
+    display: inherit;
+}

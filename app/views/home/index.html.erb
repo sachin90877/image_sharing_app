@@ -1,2 +1,22 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<h2>Welcome</h2>
+
+<br>
+<% if @photos.count != 0 %>
+  <div class="row">
+    <% @photos.each do |photo| %>
+      <div class="w-25">
+        <div class="d-flex flex-column border m-3">
+          <div class="text-center">Go to Album: <u><%= link_to photo.album.name, album_photos_path(photo.album)%></u></div>
+          <div class="img-w">
+            <%= image_tag(photo.image.url, alt: photo.caption) %>
+            <p class="caption">Tag Line:<span> <%= photo.caption %></span>
+             <br> Owner:<span> <%= photo.album.user.present? ? photo.album.user.profile.name : 'N/a' %></span>
+             <br> Upload Date:<span> <%= photo.created_at.strftime("%d-%m-%Y") %></span> </p>
+          </div>
+        </div>
+      </div>
+      <% end %>
+  </div>
+<% else %>
+  <h3 class="text-center">No photo yet!</h3>
+<% end %>

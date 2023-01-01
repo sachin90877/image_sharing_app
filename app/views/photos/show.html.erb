@@ -1,0 +1,19 @@
+<table class="table w-75 m-auto">
+  <thead>
+    <tr>
+      <th>Caption</th>
+      <th>Image</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= @photo.caption %></td>
+      <td><%= image_tag(@photo.image.url, alt: @photo.caption, :class=> 'w-50') %></td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+<%= link_to 'Edit', edit_album_photo_path(@album), class: 'btn btn-info text-white' %>
+<%= link_to 'Back', album_photos_path, class: 'btn btn-secondary text-white' %>

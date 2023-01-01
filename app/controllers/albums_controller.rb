@@ -1,9 +1,11 @@
 class AlbumsController < ApplicationController
   before_action :set_album, only: %i[ show edit update destroy ]
+  before_action :check_profile
+  before_action :check_owner, only: [:edit, :update, :destroy]
 
   # GET /albums or /albums.json
   def index
-    @albums = Album.all
+    @albums = current_user.albums
   end
 
   # GET /albums/1 or /albums/1.json
@@ -12,7 +14,7 @@ class AlbumsController < ApplicationController
 
   # GET /albums/new
   def new
-    @album = Album.new
+    @album = current_user.albums.new
   end
 
   # GET /albums/1/edit
@@ -21,11 +23,11 @@ class AlbumsController < ApplicationController
 
   # POST /albums or /albums.json
   def create
-    @album = Album.new(album_params)
+    @album = current_user.albums.new(album_params)
 
     respond_to do |format|
       if @album.save
-        format.html { redirect_to album_url(@album), notice: "Album was successfully created." }
+        format.html { redirect_to albums_path, notice: "Album was successfully created." }
         format.json { render :show, status: :created, location: @album }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +40,7 @@ class AlbumsController < ApplicationController
   def update
     respond_to do |format|
       if @album.update(album_params)
-        format.html { redirect_to album_url(@album), notice: "Album was successfully updated." }
+        format.html { redirect_to albums_path, notice: "Album was successfully updated." }
         format.json { render :show, status: :ok, location: @album }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -63,8 +65,22 @@ class AlbumsController < ApplicationController
       @album = Album.find(params[:id])
     end
 
+    def check_profile
+      if !current_user.profile.name.present?
+        flash.notice = 'First update your profile'
+        redirect_to edit_profile_path(current_user.profile)
+      end
+    end
+
+    def check_owner
+     unless @album.user_id == current_user.id
+      flash[:notice] = 'Access denied'
+      redirect_to albums_path
+     end
+    end
+
     # Only allow a list of trusted parameters through.
     def album_params
-      params.require(:album).permit(:name)
+      params.require(:album).permit(:name, :user_id, photos_attributes: [:image, :caption, :album_id])
     end
 end
