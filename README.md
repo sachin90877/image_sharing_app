@@ -1,24 +1,19 @@
-# README
+# Photo Sharing App
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Built on Ruby on Rails, In this App user can sing-up and make there profle to 
+create photo albums and start uploading photos inside the created albums.
 
-Things you may want to cover:
+User has a restriction on uploading photos in the albums, 
+i.e. they can only upload 25 photos per albums however they can create any number of albums in their profile.
 
-* Ruby version
 
-* System dependencies
+## Appendix
 
-* Configuration
+ For this project I have used following Ruby gems:
 
-* Database creation
+- Devise :- For User authentication
+- Paperclip :- For Image upload 
 
-* Database initialization
+## 🚀 About Me
+I'm a full stack developer. My tech stacks are - Ruby on Rails(RoR), AngularJS, HTML, CSS, JavaScript, Bootstrap, MySql
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...

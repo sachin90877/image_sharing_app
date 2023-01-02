@@ -2,6 +2,7 @@ class PhotosController < ApplicationController
   before_action :set_photo, only: %i[ show edit update destroy ]
   before_action :check_photo_count, only: %i[ new create ]
   before_action :check_user_authenticity, except: :index
+  skip_before_action :authenticate_user!, only: :index
 
   # GET /photos or /photos.json
   def index
