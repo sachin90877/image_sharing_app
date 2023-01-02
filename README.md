@@ -6,6 +6,8 @@ create photo albums and start uploading photos inside the created albums.
 User has a restriction on uploading photos in the albums, 
 i.e. they can only upload 25 photos per albums however they can create any number of albums in their profile.
 
+Also all users/visitors can browse any album without logging in.
+
 
 ## Appendix
 
